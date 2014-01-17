@@ -1,0 +1,25 @@
+<!doctype html>
+<html lang="en" ng-app="myApp">
+<head>
+  <meta charset="utf-8">
+  <title>Angular-Auth</title>
+  <link rel="stylesheet" href="css/app.css"/>
+</head>
+<body>
+	{{pendingRequests}}
+	<div>
+		<a href="#/home">Home</a>
+		<a href="#/login">Login</a>
+		<a href="/restricted">Restricted</a>
+	</div>
+  <div ng-view></div>
+
+  <script src="lib/angular/angular.js"></script>
+  <script src="lib/angular/angular-route.js"></script>
+  <script src="js/app.js"></script>
+  <script src="js/services.js"></script>
+  <script src="js/controllers.js"></script>
+  <script src="js/filters.js"></script>
+  <script src="js/directives.js"></script>
+</body>
+</html>
