@@ -11,39 +11,18 @@ angular.module('myApp', [
 				templateUrl: "partials/home.html"
 			})
 			.when("/login", {
+				controller: "LoginController",
 				templateUrl: "partials/login.html"
-			})
-			.when("/restricted", {
-				templateUrl: "partials/restricted.html"
+			}).when("/restricted", {
+				templateUrl: "/restricted"
+			}).when("/logout", {
+				controller: "LogoutController",
+				templateUrl: "partials/logout.html"
 			}).otherwise({redirectTo: '/'});
 
-		$httpProvider.interceptors.push(function($q){
+		$httpProvider.interceptors.push(function($q, $location){
 			return {
-				// optional method
-				'request': function(config) {
-					console.log("1");
-					// do something on success
-					return config || $q.when(config);
-				},
-
-				// optional method
-				'requestError': function(rejection) {
-					console.log("2");
-					// do something on error
-					return $q.reject(rejection);
-				},
-
-				// optional method
-				'response': function(response) {
-					console.log("3");
-					// do something on success
-					return response || $q.when(response);
-				},
-
-				// optional method
-				'responseError': function(rejection) {
-					console.log("4");
-					// do something on error
+				responseError: function(rejection) {
 					if(rejection.status === 401){
 						$location.path("/login");
 					}
@@ -51,33 +30,4 @@ angular.module('myApp', [
 				}
 			};
 		});
-	}])/*.config(function ($httpProvider) {
-		$httpProvider.interceptors.push('requestInterceptor');
-	}).factory('requestInterceptor', function ($q, $rootScope) {
-		$rootScope.pendingRequests = "init";
-		return {
-			'request': function (config) {
-				console.log("request");
-				$rootScope.pendingRequests = "request";
-				return config || $q.when(config);
-			},
-
-			'requestError': function(rejection) {
-				console.log("requestError");
-				$rootScope.pendingRequests = "requestError";
-				return $q.reject(rejection);
-			},
-
-			'response': function(response) {
-				console.log("response");
-				$rootScope.pendingRequests = "response";
-				return response || $q.when(response);
-			},
-
-			'responseError': function(rejection) {
-				console.log("responseError");
-				$rootScope.pendingRequests = "responseError";
-				return $q.reject(rejection);
-			}
-		}
-	})*/;
+	}]);
